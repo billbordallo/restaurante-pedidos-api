@@ -1,4 +1,4 @@
-INSERT INTO menu (pk_menu, nome_alimento, cat_alimento, desc_alimento, preco) VALUES (1, 'Paste de queijo', 'Entrada', 'Porção com 6 pastéis de queijo.', 25.00);
+INSERT INTO menu (pk_menu, nome_alimento, cat_alimento, desc_alimento, preco) VALUES (1, 'Pastel de queijo', 'Entrada', 'Porção com 6 pastéis de queijo.', 25.00);
 INSERT INTO menu (pk_menu, nome_alimento, cat_alimento, desc_alimento, preco) VALUES (2, 'Iscas de frango', 'Entrada', 'Iscas de filé de peito de frango empanados e fritos, acompanha molho da casa.', 35.00);
 INSERT INTO menu (pk_menu, nome_alimento, cat_alimento, desc_alimento, preco) VALUES (3, 'Tábua de frios', 'Entrada', '3 variedades de queijo, 3 variedades de embutidos e torradas.', 45.00);
 INSERT INTO menu (pk_menu, nome_alimento, cat_alimento, desc_alimento, preco) VALUES (4, 'Gurjão de peixe', 'Entrada', 'Iscas de tilápia empanadas e fritas, acompanha molho tártaro.', 50.00);
