@@ -5,7 +5,7 @@ Este é um sistema escrito em Python que tem como objetivo agilizar a comunicaç
 
 O sistema permite a inclusão de novos pedidos, exclusão, alteração de status e visualização de todos os pedidos. Também é possível visualizar o menu completo do restaurante.
 
-## Como executar 
+## Como instalar e executar 
 
 Os requisitos para rodar o sistema são ter o **Python** instalado e as libs listadas no arquivo `requirements.txt`.
 
@@ -31,3 +31,9 @@ automaticamente após uma mudança no código fonte.
 ```
 
 Abra o [http://localhost:5000/#/](http://localhost:5000/#/) ou [http://127.0.0.1:5000/#/](http://127.0.0.1:5000/#/) no navegador para verificar o status da API em execução.
+
+## Sobre o banco de dados
+
+O SQL Alchemy vai criar o banco de dados e as tabelas necessárias usando em SQLite. No total, são duas tabelas: `pedidos` e `menu`.
+
+Há um arquivo em `database/menu_db.sql` que contém o cardápio do restaurante. Portanto, a tabela `menu` será populada na primeira vez que o Flask rodar. Mais detalhes estão no arquivo `model/__init__.py`.
