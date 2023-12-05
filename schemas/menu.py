@@ -2,8 +2,6 @@ from pydantic import BaseModel
 from typing import Optional, List
 from model.menu import Menu
 
-# from schemas import MenuSchema
-
 
 class MenuSchema(BaseModel):
     """ Define como um novo menu a ser inserido deve ser representado

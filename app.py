@@ -89,31 +89,6 @@ def get_pedidos():
         return apresenta_pedidos(pedidos), 200
 
 
-@app.get('/pedido', tags=[pedido_tag],
-         responses={"200": PedidoViewSchema, "404": ErrorSchema})
-def get_pedido(query: PedidoBuscaSchema):
-    """Faz a busca por um Pedido a partir do id do pedido
-
-    Retorna uma representação dos pedidos e comentários associados.
-    """
-    pedido_id = query.id
-    logger.debug(f"Coletando dados sobre pedido #{pedido_id}")
-    # criando conexão com a base
-    session = Session()
-    # fazendo a busca
-    pedido = session.query(Pedido).filter(Pedido.id == pedido_id).first()
-
-    if not pedido:
-        # se o pedido não foi encontrado
-        error_msg = "Pedido não encontrado na base :/"
-        logger.warning(f"Erro ao buscar pedido '{pedido_id}', {error_msg}")
-        return {"mesage": error_msg}, 404
-    else:
-        logger.debug(f"Pedido econtrado: '{pedido.pedido}'")
-        # retorna a representação de pedido
-        return apresenta_pedido(pedido), 200
-
-
 @app.delete('/pedido', tags=[pedido_tag],
             responses={"200": PedidoDelSchema, "404": ErrorSchema})
 def del_pedido(query: PedidoBuscaSchema):
@@ -169,68 +144,6 @@ def put_pedido(query: PedidoBuscaSchema, form: PedidoAtualizaSchema):
         logger.debug(f"Pedido econtrado: '{pedido.pedido}'")
         # retorna a representação de pedido
         return apresenta_pedido(pedido), 200
-
-
-@app.get('/pedidos_por_nome', tags=[pedido_tag],
-         responses={"200": PedidoViewSchema, "404": ErrorSchema})
-def get_pedidos_por_nome(query: PedidoNomeBuscaSchema):
-    """Faz a busca por todos os Pedidos cadastrados por nome
-
-    Retorna uma representação da listagem de pedidos.
-    """
-    nome_pedido = query.pedido
-
-    logger.debug(f"Coletando pedidos ")
-    # criando conexão com a base
-    session = Session()
-    # fazendo a busca
-    pedidos = session.query(Pedido).filter(Pedido.pedido.contains(nome_pedido)).all()
-
-    if not pedidos:
-        # se não há pedidos cadastrados
-        return {"pedidos": []}, 200
-    else:
-        logger.debug(f"%d rodutos econtrados" % len(pedidos))
-        # retorna a representação de produto
-        print(pedidos)
-        return apresenta_pedidos(pedidos), 200
-
-
-@app.post('/menu', tags=[menu_tag],
-          responses={"200": MenuViewSchema, "409": ErrorSchema, "400": ErrorSchema})
-def add_menu(form: MenuSchema):
-    """Adiciona de um novo item ao menu de alimentos cadastrados na base identificado pelo id
-
-    Retorna uma representação do item adicionado ao menu.
-    """
-    menu = Menu(
-        nome_alimento = form.nome_alimento,
-        cat_alimento = form.cat_alimento,
-        desc_alimento = form.desc_alimento,
-        preco = form.preco)
-
-    logger.debug(f"Adicionando itens ao menu: '{menu.nome_alimento}'")
-    try:
-        # criando conexão com a base
-        session = Session()
-        # adiconando o item ao menu
-        session.add(menu)
-        # efetivando o comando de adição de novo item na tabela
-        session.commit()
-        logger.debug(f"Adicionando itens ao menu: '{menu.nome_alimento}'")
-        return apresenta_menu(menu), 200
-    
-    except IntegrityError as e:
-        # como a duplicidade do nome é a provável razão do IntegrityError
-        error_msg = "Item de mesmo nome já salvo na base :/"
-        logger.warning(f"Erro ao adicionar o item '{menu.nome_alimento}', {error_msg}")
-        return {"mesage": error_msg}, 409
-    
-    except Exception as e:
-        # caso um erro fora do previsto
-        error_msg = "Não foi possível salvar novo item :/"
-        logger.warning(f"Erro ao adicionar pedido '{menu.nome_alimento}', {error_msg}")
-        return {"mesage": error_msg}, 400
 
 
 @app.get('/cardapio', tags=[menu_tag],

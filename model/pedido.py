@@ -1,5 +1,4 @@
-from sqlalchemy import Column, String, Integer, DateTime, Float, ForeignKey
-# from sqlalchemy.orm import relationship
+from sqlalchemy import Column, String, Integer, DateTime, Float
 from datetime import datetime
 from typing import Union
 
@@ -18,12 +17,7 @@ class Pedido(Base):
     valor = Column(Float, unique=False)
     data_insercao = Column(DateTime, default=datetime.now(), unique=False)
 
-    # Definição do relacionamento entre o menu e um pedido.
-    # Aqui está sendo definido a coluna 'pedido' que vai guardar
-    # a referencia ao pedido, a chave estrangeira que relaciona
-    # um pedido ao menu.
-    # pedido = Column(Integer, ForeignKey("menu.pk_menu"), nullable=False)
-    
+   
 
     def __init__(self, mesa:int, responsavel:str, pedido:str, obs:str, status:str, valor:float,
                  data_insercao:Union[DateTime, None] = None):
@@ -51,8 +45,4 @@ class Pedido(Base):
             except ValueError:
                 raise ValueError("data_insercao must be a string in the format 'YYYY-MM-DD HH:MM:SS'")
 
-    # def adiciona_menu(self, menu:Menu):
-    #     """ Adiciona um novo pedido ao menu
-    #     """
-    #     self.menus.append(menu)
 

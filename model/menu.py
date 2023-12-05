@@ -1,6 +1,4 @@
 from sqlalchemy import Column, String, Integer, Float
-# from sqlalchemy.orm import relationship
-
 from model import Base
 
 
@@ -13,11 +11,6 @@ class Menu(Base):
     desc_alimento = Column(String(500))
     preco = Column(Float)
 
-    # Definição do relacionamento entre o produto e o comentário.
-    # Essa relação é implicita, não está salva na tabela 'produto',
-    # mas aqui estou deixando para SQLAlchemy a responsabilidade
-    # de reconstruir esse relacionamento.
-    # pedido = relationship("Pedido", backref="menus")
 
     def __init__(self, nome_alimento:str, cat_alimento:str, desc_alimento:str, preco:float):
         """
@@ -33,8 +26,3 @@ class Menu(Base):
         self.cat_alimento = cat_alimento
         self.desc_alimento = desc_alimento
         self.preco = preco
-
-    # def adiciona_pedido(self, pedido:Pedido):
-    #     """ Adiciona um novo Pedido ao Menu
-    #     """
-    #     self.pedidos.append(pedido)
