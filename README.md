@@ -1,7 +1,7 @@
-# Pedidos para Restaurantes - API
+# Pedidos Restaurante - API
 _versão: 1.0_
 
-Este é um MVP escrito em Python que tem como objetivo agilizar a comunicação entre o salão do restaurante e a cozinha, centralizando os pedidos, seu status e eventuais observações. Dessa forma, todos os envolvidos no atendimento ao público — garçons, gerentes e equipe de cozinha — podem visualizar a qualquer momento os pedidos realizados e seu status.
+Este é um MVP do back-end e API _"Pedidos Restaurante"_, escrito em Python, que tem como objetivo agilizar a comunicação entre o salão do restaurante e a cozinha, centralizando os pedidos, seu status e eventuais observações. Dessa forma, todos os envolvidos no atendimento ao público — garçons, gerentes e equipe de cozinha — podem visualizar a qualquer momento os pedidos realizados e seu status.
 
 O sistema permite a inclusão de novos pedidos, exclusão, alteração de status e visualização de todos os pedidos. Também é possível visualizar o menu completo do restaurante.
 
