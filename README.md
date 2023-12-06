@@ -1,9 +1,11 @@
 # Pedidos para Restaurantes - API
 _versão: 1.0_
 
-Este é um sistema escrito em Python que tem como objetivo agilizar a comunicação entre o salão do restaurante e a cozinha, centralizando os pedidos, seu status e eventuais observações. Dessa forma, todos os envolvidos no atendimento ao público — garçons, gerentes e equipe de cozinha — podem visualizar a qualquer momento os pedidos realizados e seu status.
+Este é um MVP escrito em Python que tem como objetivo agilizar a comunicação entre o salão do restaurante e a cozinha, centralizando os pedidos, seu status e eventuais observações. Dessa forma, todos os envolvidos no atendimento ao público — garçons, gerentes e equipe de cozinha — podem visualizar a qualquer momento os pedidos realizados e seu status.
 
 O sistema permite a inclusão de novos pedidos, exclusão, alteração de status e visualização de todos os pedidos. Também é possível visualizar o menu completo do restaurante.
+
+Neste repositório, encontra-se o back-end e a API do sistema, com documentação em Swagger. Para ter acesso ao front-end, acesse [este repositório](https://github.com/billbordallo/restaurante-pedidos).
 
 ## Como instalar e executar 
 
@@ -37,3 +39,7 @@ Abra o [http://localhost:5000/#/](http://localhost:5000/#/) ou [http://127.0.0.1
 O SQL Alchemy vai criar o banco de dados e as tabelas necessárias usando em SQLite. No total, são duas tabelas: `pedidos` e `menu`.
 
 Há um arquivo em `database/menu_db.sql` que contém o cardápio do restaurante. Portanto, a tabela `menu` será populada na primeira vez que o Flask rodar. Mais detalhes estão no arquivo `model/__init__.py`.
+
+## Sobre o projeto
+
+Este MVP foi desenvolvido como trabalho final para a Sprint "Desenvolvimento Full Stack Básico", da Pós-Graduação em Desenvolvimento Full Stack, do Departamento de Informática da PUC-Rio.
