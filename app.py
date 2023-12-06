@@ -64,6 +64,8 @@ def add_pedido(form: PedidoSchema):
         error_msg = "Não foi possível salvar novo item :/"
         logger.warning(f"Erro ao adicionar pedido '{pedido_feito.pedido}', {error_msg}, {e}")
         return {"mesage": error_msg}, 400
+    finally:
+        session.close()
 
 
 @app.get('/pedidos', tags=[pedido_tag],
@@ -76,17 +78,20 @@ def get_pedidos():
     logger.debug(f"Coletando pedidos ")
     # criando conexão com a base
     session = Session()
-    # fazendo a busca
-    pedidos = session.query(Pedido).all()
+    try:
+        # fazendo a busca
+        pedidos = session.query(Pedido).all()
 
-    if not pedidos:
-        # se não há pedidos cadastrados
-        return {"pedidos": []}, 200
-    else:
-        logger.debug(f"%d rodutos econtrados" % len(pedidos))
-        # retorna a representação de pedido
-        print(pedidos)
-        return apresenta_pedidos(pedidos), 200
+        if not pedidos:
+            # se não há pedidos cadastrados
+            return {"pedidos": []}, 200
+        else:
+            logger.debug(f"%d rodutos econtrados" % len(pedidos))
+            # retorna a representação de pedido
+            print(pedidos)
+            return apresenta_pedidos(pedidos), 200
+    finally:    
+        session.close()
 
 
 @app.delete('/pedido', tags=[pedido_tag],
@@ -127,23 +132,26 @@ def put_pedido(query: PedidoBuscaSchema, form: PedidoAtualizaSchema):
     logger.debug(f"Alterando dados sobre pedido #{pedido_id}")
     # criando conexão com a base
     session = Session()
-    # fazendo a busca
-    pedido = session.query(Pedido).filter(Pedido.id == pedido_id).first()
+    try:
+        # fazendo a busca
+        pedido = session.query(Pedido).filter(Pedido.id == pedido_id).first()
 
-    if not pedido:
-        # se o pedido não foi encontrado
-        error_msg = "Pedido não encontrado na base :/"
-        logger.warning(f"Erro ao buscar pedido '{pedido_id}', {error_msg}")
-        return {"mesage": error_msg}, 404
-    else:
-        # alterando os dados
-        pedido.status = form.status
-        # mesclando a instância atualizada com a sessão e confirmando a transação
-        session.merge(pedido)
-        session.commit()
-        logger.debug(f"Pedido econtrado: '{pedido.pedido}'")
-        # retorna a representação de pedido
-        return apresenta_pedido(pedido), 200
+        if not pedido:
+            # se o pedido não foi encontrado
+            error_msg = "Pedido não encontrado na base :/"
+            logger.warning(f"Erro ao buscar pedido '{pedido_id}', {error_msg}")
+            return {"mesage": error_msg}, 404
+        else:
+            # alterando os dados
+            pedido.status = form.status
+            # mesclando a instância atualizada com a sessão e confirmando a transação
+            session.merge(pedido)
+            session.commit()
+            logger.debug(f"Pedido econtrado: '{pedido.pedido}'")
+            # retorna a representação de pedido
+            return apresenta_pedido(pedido), 200
+    finally:
+        session.close()
 
 
 @app.get('/cardapio', tags=[menu_tag],
@@ -156,14 +164,17 @@ def get_cardapio():
     logger.debug(f"Listando itens no menu ")
     # criando conexão com a base
     session = Session()
-    # fazendo a busca
-    cardapio = session.query(Menu).all()
+    try:
+        # fazendo a busca
+        cardapio = session.query(Menu).all()
 
-    if not cardapio:
-        # se não há itens cadastrados no menu
-        return {"Cardápio": []}, 200
-    else:
-        logger.debug(f"%d itens econtrados" % len(cardapio))
-        # retorna a representação de pedido
-        print(cardapio)
-        return apresenta_menus(cardapio), 200
+        if not cardapio:
+            # se não há itens cadastrados no menu
+            return {"Cardápio": []}, 200
+        else:
+            logger.debug(f"%d itens econtrados" % len(cardapio))
+            # retorna a representação de pedido
+            print(cardapio)
+            return apresenta_menus(cardapio), 200
+    finally:    
+        session.close()
